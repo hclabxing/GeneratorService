@@ -1,0 +1,45 @@
+# Go build artifacts
+bin/
+build/
+dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go coverage files
+coverage*.out
+cover*.out
+
+# Debug/Delve temporary binaries
+__debug_bin*
+
+# Logs and temp files
+*.log
+logs/
+tmp/
+temp/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.code-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Go module vendor directory (uncomment if you use vendoring)
+# vendor/
+
+
