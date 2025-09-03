@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import Page from "./page";
 
-// 简单全局 fetch mock
+// Simple global fetch mock
 function mockFetchOnce(data: any, ok = true) {
 	(global as any).fetch = jest.fn().mockResolvedValueOnce({
 		ok,
@@ -16,33 +16,33 @@ describe("Page interactions", () => {
 		jest.resetAllMocks();
 	});
 
-	test("生成随机数成功", async () => {
+	test("generate random number successfully", async () => {
 		mockFetchOnce({ value: 7 });
 		render(<Page />);
-		fireEvent.click(screen.getByText("生成"));
-		await waitFor(() => expect(screen.getByText(/结果:/)).toBeInTheDocument());
-		expect(screen.getByText(/结果:/).textContent).toContain("7");
+		fireEvent.click(screen.getByText("Generate"));
+		await waitFor(() => expect(screen.getByText(/Result:/)).toBeInTheDocument());
+		expect(screen.getByText(/Result:/).textContent).toContain("7");
 	});
 
-	test("获取名言成功", async () => {
+	test("get quote successfully", async () => {
 		mockFetchOnce({ quote: "Test Quote" });
 		render(<Page />);
-		fireEvent.click(screen.getByText("获取名言"));
-		await waitFor(() => expect(screen.getByText(/名言:/)).toBeInTheDocument());
-		expect(screen.getByText(/名言:/).textContent).toContain("Test Quote");
+		fireEvent.click(screen.getByText("Get Quote"));
+		await waitFor(() => expect(screen.getByText(/Quote:/)).toBeInTheDocument());
+		expect(screen.getByText(/Quote:/).textContent).toContain("Test Quote");
 	});
 
-	test("参数错误显示", async () => {
+	test("parameter error shown", async () => {
 		(global as any).fetch = jest.fn().mockResolvedValueOnce({
 			ok: false,
 			text: async () => "min must be <= max",
 		});
 		render(<Page />);
-		// 设置 min > max
+		// set min > max
 		fireEvent.change(screen.getByLabelText("min:"), { target: { value: "10" } });
 		fireEvent.change(screen.getByLabelText("max:"), { target: { value: "1" } });
-		fireEvent.click(screen.getByText("生成"));
-		await waitFor(() => expect(screen.getByText(/错误:/)).toBeInTheDocument());
-		expect(screen.getByText(/错误:/).textContent).toContain("min must be <= max");
+		fireEvent.click(screen.getByText("Generate"));
+		await waitFor(() => expect(screen.getByText(/Error:/)).toBeInTheDocument());
+		expect(screen.getByText(/Error:/).textContent).toContain("min must be <= max");
 	});
 });

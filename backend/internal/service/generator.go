@@ -7,12 +7,12 @@ import (
 )
 
 var (
-	// ErrInvalidArgument 表示参数错误（如 min > max）
+	// ErrInvalidArgument indicates invalid arguments (e.g., min > max).
 	ErrInvalidArgument = errors.New("invalid argument")
 )
 
-// GeneratorService 封装随机数与名言逻辑
-// rng 使用 math/rand.Rand 以便测试自定义种子
+// GeneratorService encapsulates random number and quote logic.
+// rng uses math/rand.Rand to allow custom seeds in tests.
 
 type GeneratorService struct {
 	rng    *rand.Rand
@@ -26,7 +26,7 @@ func NewGeneratorService(quotes []string) *GeneratorService {
 	}
 }
 
-// GenerateNumber 生成 [min, max] 范围内的随机整数；当 min > max 返回 ErrInvalidArgument。
+// GenerateNumber returns a random integer in [min, max]; returns ErrInvalidArgument when min > max.
 func (s *GeneratorService) GenerateNumber(min, max int64) (int64, error) {
 	if min > max {
 		return 0, ErrInvalidArgument
@@ -38,7 +38,7 @@ func (s *GeneratorService) GenerateNumber(min, max int64) (int64, error) {
 	return v, nil
 }
 
-// RandomQuote 返回一条随机名言（quotes 非空时）。
+// RandomQuote returns a random quote when quotes is non-empty.
 func (s *GeneratorService) RandomQuote() string {
 	if len(s.quotes) == 0 {
 		return ""

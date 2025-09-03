@@ -56,7 +56,7 @@ export default function Page() {
 
 	async function onGenerateNumber() {
 		if (!canGenerate) {
-			setNumberError("请输入合法的数字");
+			setNumberError("Please enter valid numbers");
 			return;
 		}
 		setNumberError("");
@@ -66,7 +66,7 @@ export default function Page() {
 			const res = await client.getRandomNumber({ min: minNum, max: maxNum });
 			setNumberResult(String(res.value));
 		} catch (e: any) {
-			setNumberError(e?.message || "请求失败");
+			setNumberError(e?.message || "Request failed");
 		} finally {
 			setLoadingNumber(false);
 		}
@@ -80,7 +80,7 @@ export default function Page() {
 			const res = await client.getRandomQuote({});
 			setQuoteResult(res.quote);
 		} catch (e: any) {
-			setQuoteError(e?.message || "请求失败");
+			setQuoteError(e?.message || "Request failed");
 		} finally {
 			setLoadingQuote(false);
 		}
@@ -91,37 +91,37 @@ export default function Page() {
 			<header className="header">
 				<div className="brand">
 					<div className="brand-badge">G</div>
-					<span>生成器</span>
+					<span>Generator</span>
 				</div>
-				<span className="subtitle">随机数与随机名言</span>
+				<span className="subtitle">Random Number & Random Quote</span>
 			</header>
 
 			<div className="grid">
 				<section className="card stack">
-					<h2 className="title">随机数</h2>
-					<p className="desc">输入最小值与最大值，生成一个区间内整数</p>
+					<h2 className="title">Random Number</h2>
+					<p className="desc">Enter min and max to generate an integer in range</p>
 					<div className="row">
-						<input className="input" inputMode="numeric" value={min} onChange={(e) => setMin(e.target.value)} placeholder="最小值" />
-						<input className="input" inputMode="numeric" value={max} onChange={(e) => setMax(e.target.value)} placeholder="最大值" />
+						<input className="input" inputMode="numeric" value={min} onChange={(e) => setMin(e.target.value)} placeholder="Min" />
+						<input className="input" inputMode="numeric" value={max} onChange={(e) => setMax(e.target.value)} placeholder="Max" />
 					</div>
 					<div className="actions">
-						<button className="btn" onClick={onGenerateNumber} disabled={!canGenerate || loadingNumber}>{loadingNumber ? "生成中…" : "生成"}</button>
-						<span className="note">示例：1 与 10</span>
+						<button className="btn" onClick={onGenerateNumber} disabled={!canGenerate || loadingNumber}>{loadingNumber ? "Generating…" : "Generate"}</button>
+						<span className="note">Example: 1 and 10</span>
 					</div>
-					{numberResult && <div className="good">结果: <span className="kpi">{numberResult}</span></div>}
-					{numberError && <div className="alert">错误: {numberError}</div>}
-					{!numberResult && !numberError && <div className="note">输入范围并点击生成</div>}
+					{numberResult && <div className="good">Result: <span className="kpi">{numberResult}</span></div>}
+					{numberError && <div className="alert">Error: {numberError}</div>}
+					{!numberResult && !numberError && <div className="note">Enter a range and click Generate</div>}
 				</section>
 
 				<section className="card stack">
-					<h2 className="title">随机名言</h2>
-					<p className="desc">点击按钮，随机返回一条预设名言</p>
+					<h2 className="title">Random Quote</h2>
+					<p className="desc">Click the button to get a random preset quote</p>
 					<div className="actions">
-						<button className="btn" onClick={onGetQuote} disabled={loadingQuote}>{loadingQuote ? "获取中…" : "获取名言"}</button>
+						<button className="btn" onClick={onGetQuote} disabled={loadingQuote}>{loadingQuote ? "Loading…" : "Get Quote"}</button>
 					</div>
-					{quoteResult && <div className="good">名言: <span className="kpi">{quoteResult}</span></div>}
-					{quoteError && <div className="alert">错误: {quoteError}</div>}
-					{!quoteResult && !quoteError && <div className="note">点击按钮获取一条名言</div>}
+					{quoteResult && <div className="good">Quote: <span className="kpi">{quoteResult}</span></div>}
+					{quoteError && <div className="alert">Error: {quoteError}</div>}
+					{!quoteResult && !quoteError && <div className="note">Click the button to get a quote</div>}
 				</section>
 			</div>
 

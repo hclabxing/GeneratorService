@@ -10,10 +10,10 @@ import (
 )
 
 const (
-	PathGetRandomNumber            = "/GetRandomNumber"
-	PathGetRandomQuote             = "/GetRandomQuote"
-	PathHealth                     = "/healthz"
-	headerAccessControlAllowOrigin = "Access-Control-Allow-Origin"
+	PathGetRandomNumber             = "/GetRandomNumber"
+	PathGetRandomQuote              = "/GetRandomQuote"
+	PathHealth                      = "/healthz"
+	headerAccessControlAllowOrigin  = "Access-Control-Allow-Origin"
 	headerAccessControlAllowHeaders = "Access-Control-Allow-Headers"
 	headerAccessControlAllowMethods = "Access-Control-Allow-Methods"
 )
@@ -37,7 +37,7 @@ type ErrorResponse struct {
 	Error string `json:"error"`
 }
 
-// NewMux 创建并返回 HTTP 路由。
+// NewMux creates and returns the HTTP router.
 func NewMux(svc *service.GeneratorService) *http.ServeMux {
 	mux := http.NewServeMux()
 	mux.HandleFunc(PathGetRandomNumber, func(w http.ResponseWriter, r *http.Request) {
@@ -95,7 +95,7 @@ func writeJSON(w http.ResponseWriter, status int, v any) {
 	_ = json.NewEncoder(w).Encode(v)
 }
 
-// WithCORS 简单 CORS 中间件（开发环境）。
+// WithCORS simple CORS middleware (development).
 func WithCORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(headerAccessControlAllowOrigin, "*")
@@ -109,7 +109,7 @@ func WithCORS(next http.Handler) http.Handler {
 	})
 }
 
-// Logging 简单访问日志中间件。
+// Logging simple access log middleware.
 func Logging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
