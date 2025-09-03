@@ -2,6 +2,8 @@
 
 A simple full‑stack service that exposes two endpoints via a Go backend and a Next.js frontend.
 
+![App Interface Preview](./interface.png)
+
 ### Backend
 
 Run the service from the `backend` directory.
